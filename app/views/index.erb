@@ -1,0 +1,114 @@
+<div class="container">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand header-title" href="#">Playlist Manager</a>
+      </div>
+    </div>
+  </nav>
+  <div class="content">
+    <h3>Manage your playlists here! <small>Create playlists and add songs to them.</small></h3>
+  </div>
+  <div class="content">
+    <div class="col-md-6 col-xs-12" id="playlistsContainer">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">Playlists</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <caption>Click on a row to view songs</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @playlists.each_with_index do |playlist, index| %>
+              <%= erb :"playlists/_playlist", locals: {object: playlist, first: index == 0} %>
+              <% end %>
+            </tbody>
+          </table>
+          <a href="#" class="btn btn-default pull-right" data-toggle="modal" data-target="#addPlaylist">Add Playlist</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-12" id="songsContainer">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= @playlists.first.name %></h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <caption>Click on the garbage icon to remove song</caption>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @playlists.first.songs.each do |song| %>
+              <%= erb :"songs/_song", locals: {object: song} %>
+              <% end %>
+            </tbody>
+          </table>
+          <a href="#" class="btn btn-default pull-right" data-toggle="modal" data-target="#addSong">Add Song</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="addPlaylist">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Create Playlist</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" id="name" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="description" placeholder="Description">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="addSong">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add Song</h4>
+      </div>
+      <form>
+        <div class="modal-body">
+            <div class="form-group">
+              <input type="text" class="form-control" id="title" placeholder="Title">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="artist" placeholder="Artist">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
